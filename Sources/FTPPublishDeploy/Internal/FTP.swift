@@ -6,6 +6,8 @@
 
 import Publish
 import ShellOut
+import Files
+import Foundation
 
 struct FTP<Site: Website> {
     let connection: FTPConnection
@@ -36,14 +38,22 @@ private extension FTP {
                        useSSL: Bool = true) throws {
         let usingSSL = useSSL ? "--ftp-ssl" : ""
         do {
+            let ftpUrl = "ftp://\(connection.host):\(connection.port)/\(sourcePath != nil ? "\(sourcePath!)/" : "")\(subfolderPath)/"
+            try shellOut(
+                to: "echo \"\(filePath) -> \(ftpUrl)\"",
+                outputHandle: FileHandle.standardOutput,
+                errorHandle: FileHandle.standardError
+            )
             try shellOut(
                 to: """
-                curl -T \(filePath) \
-                \(usingSSL) \
-                -u \(connection.username):\(connection.password) \
-                --ftp-create-dirs \
-                ftp://\(connection.host):\(connection.port)/\(sourcePath != nil ? "\(sourcePath!)/" : "")\(subfolderPath)/
-                """
+                    curl -T \(filePath) \
+                    \(usingSSL) \
+                    -u \(connection.username):\(connection.password) \
+                    --ftp-create-dirs \
+                    \(ftpUrl)
+                """,
+                outputHandle: FileHandle.standardOutput,
+                errorHandle: FileHandle.standardError
             )
         } catch let error as ShellOutError {
             throw PublishingError(infoMessage: error.message)
@@ -57,13 +67,21 @@ private extension FTP {
                         useSSL: Bool = true) throws {
         let usingSSL = useSSL ? "--ftp-ssl" : ""
         do {
+            let ftpUrl = "ftp://\(connection.host):\(connection.port)/\(sourcePath != nil ? "\(sourcePath!)/" : "")"
+            try shellOut(
+                to: "echo \"\(filePath) -> \(ftpUrl)\"",
+                outputHandle: FileHandle.standardOutput,
+                errorHandle: FileHandle.standardError
+            )
             try shellOut(
                 to: """
-                curl -T \(filePath) \
-                \(usingSSL) \
-                -u \(connection.username):\(connection.password) \
-                ftp://\(connection.host):\(connection.port)/\(sourcePath != nil ? "\(sourcePath!)/" : "")
-                """
+                    curl -T \(filePath) \
+                    \(usingSSL) \
+                    -u \(connection.username):\(connection.password) \
+                    \(ftpUrl)
+                """,
+                outputHandle: FileHandle.standardOutput,
+                errorHandle: FileHandle.standardError
             )
         } catch let error as ShellOutError {
             throw PublishingError(infoMessage: error.message)
