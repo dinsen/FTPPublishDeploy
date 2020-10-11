@@ -11,7 +11,7 @@ struct FTP<Site: Website> {
     let connection: FTPConnection
     let context: PublishingContext<Site>
     let path: String
-    let sourcePath: String
+    let sourcePath: String?
     let subfolderPath: String?
     let useSSL: Bool
 
@@ -62,7 +62,7 @@ private extension FTP {
                 curl --ftp-ssl -T \(filePath) \
                 \(usingSSL) \
                 -u \(connection.username):\(connection.password) \
-                ftp://\(connection.host):\(connection.port)/\(sourcePath)/
+                ftp://\(connection.host):\(connection.port)/\(sourcePath != nil ? "\(sourcePath!)/" : "")
                 """
             )
         } catch let error as ShellOutError {
