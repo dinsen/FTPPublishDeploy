@@ -31,7 +31,7 @@ struct FTP<Site: Website> {
 
 private extension FTP {
     func uploadSubFile(filePath: String,
-                       sourcePath: String,
+                       sourcePath: String?,
                        subfolderPath: String,
                        useSSL: Bool = true) throws {
         let usingSSL = useSSL ? "--ftp-ssl" : ""
@@ -42,7 +42,7 @@ private extension FTP {
                 \(usingSSL) \
                 -u \(connection.username):\(connection.password) \
                 --ftp-create-dirs \
-                ftp://\(connection.host):\(connection.port)/\(sourcePath)/\(subfolderPath)/
+                ftp://\(connection.host):\(connection.port)/\(sourcePath != nil ? "\(sourcePath!)/" : "")\(subfolderPath)/
                 """
             )
         } catch let error as ShellOutError {
@@ -53,7 +53,7 @@ private extension FTP {
     }
 
     func uploadRootFile(filePath: String,
-                        sourcePath: String,
+                        sourcePath: String?,
                         useSSL: Bool = true) throws {
         let usingSSL = useSSL ? "--ftp-ssl" : ""
         do {
