@@ -38,7 +38,7 @@ private extension FTP {
         do {
             try shellOut(
                 to: """
-                curl --ftp-ssl -T \(filePath) \
+                curl -T \(filePath) \
                 \(usingSSL) \
                 -u \(connection.username):\(connection.password) \
                 --ftp-create-dirs \
