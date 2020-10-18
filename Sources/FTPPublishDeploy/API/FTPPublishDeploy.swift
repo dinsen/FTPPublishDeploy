@@ -12,7 +12,7 @@ public extension DeploymentMethod {
     /// - parameter connection: The connection information.
     /// - parameter sourcePath: The path on the host where the site will be uploaded.
     /// - parameter useSSL: Whether an SSL connection should be used (preferred).
-    static func ftp(connection: FTPConnection, sourcePath: String, useSSL: Bool = true) -> Self {
+    static func ftp(connection: FTPConnection, sourcePath: String? = nil, useSSL: Bool = true) -> Self {
         Self(name: "FTP") { context in
             let deploymentFolder = try context.createDeploymentFolder(withPrefix: "FTP-", configure: { _ in })
 
