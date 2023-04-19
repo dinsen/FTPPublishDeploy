@@ -22,8 +22,13 @@ let package = Package(
         .package(name:"ShellOut", url: "https://github.com/johnsundell/shellout.git", from: "2.3.0"),
     ],
     targets: [
-        .executableTarget(
+        .target(
             name: "FTPPublishDeploy",
-            dependencies: ["Files", "Publish", "ShellOut"]),
+            dependencies: [
+                "Files",
+                "Publish",
+                "ShellOut"
+            ]
+        ),
     ]
 )
