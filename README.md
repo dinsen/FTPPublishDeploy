@@ -22,7 +22,7 @@ Add FTPPublishDeploy to your `Package.swift` file.
 let package = Package(
     ...
     dependencies: [
-                .package(name: "FTPPublishDeploy", url: "https://github.com/ascherbinin/FTPPublishDeploy", from: "0.1.0")
+        .package(name: "FTPPublishDeploy", url: "https://github.com/ascherbinin/FTPPublishDeploy", from: "0.1.0")
     ],
     targets: [
         .executableTarget(
