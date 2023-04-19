@@ -17,12 +17,12 @@ let package = Package(
             targets: ["FTPPublishDeploy"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/johnsundell/files.git", from: "4.0.0"),
-        .package(url: "https://github.com/johnsundell/publish.git", from: "0.5.0"),
-        .package(url: "https://github.com/johnsundell/shellout.git", from: "2.3.0"),
+        .package(name:"Files", url: "https://github.com/johnsundell/files.git", from: "4.0.0"),
+        .package(name:"Publish", url: "https://github.com/johnsundell/publish.git", from: "0.9.0"),
+        .package(name:"ShellOut", url: "https://github.com/johnsundell/shellout.git", from: "2.3.0"),
     ],
     targets: [
-        .target(
+        .executableTarget(
             name: "FTPPublishDeploy",
             dependencies: ["Files", "Publish", "ShellOut"]),
     ]
