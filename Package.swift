@@ -1,4 +1,4 @@
-// swift-tools-version:5.1
+// swift-tools-version:5.5
 
 /**
 *  FTPPublishDeploy
@@ -10,6 +10,7 @@ import PackageDescription
 
 let package = Package(
     name: "FTPPublishDeploy",
+    platforms: [.macOS(.v12)],
     products: [
         .library(
             name: "FTPPublishDeploy",
