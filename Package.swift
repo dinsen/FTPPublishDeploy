@@ -1,4 +1,4 @@
-// swift-tools-version:5.1
+// swift-tools-version:5.5
 
 /**
 *  FTPPublishDeploy
@@ -10,19 +10,25 @@ import PackageDescription
 
 let package = Package(
     name: "FTPPublishDeploy",
+    platforms: [.macOS(.v12)],
     products: [
         .library(
             name: "FTPPublishDeploy",
             targets: ["FTPPublishDeploy"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/johnsundell/files.git", from: "4.0.0"),
-        .package(url: "https://github.com/johnsundell/publish.git", from: "0.5.0"),
-        .package(url: "https://github.com/johnsundell/shellout.git", from: "2.3.0"),
+        .package(name:"Files", url: "https://github.com/johnsundell/files.git", from: "4.0.0"),
+        .package(name:"Publish", url: "https://github.com/johnsundell/publish.git", from: "0.9.0"),
+        .package(name:"ShellOut", url: "https://github.com/johnsundell/shellout.git", from: "2.3.0"),
     ],
     targets: [
         .target(
             name: "FTPPublishDeploy",
-            dependencies: ["Files", "Publish", "ShellOut"]),
+            dependencies: [
+                "Files",
+                "Publish",
+                "ShellOut"
+            ]
+        ),
     ]
 )
